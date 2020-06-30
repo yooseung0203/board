@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Board">
+
+<select id="getNextval" resultType="int">
+	select board_seq.nextval from dual
+</select>
+
+<select id="getArticleCount" resultType="int">
+	select count(*) from board
+</select>
+
+<insert id="insert"> 
+	insert into board values(#{seq},#{title},#{contents},#{writer},sysdate,0,#{ip_addr})
+	<!-- 문자열은 # -->
+</insert>
+<select id="selectAll" resultType="kh.spring.dto.BoardDTO">
+	select * from board order by seq desc
+</select>
+
+<select id="selectByPage" resultType="kh.spring.dto.BoardDTO">
+	select * from (select board.*, row_number() over(order by seq desc) rnum from board) where rnum between #{start} and #{end}
+</select>
+
+<select id="selectBySeq" resultType="kh.spring.dto.BoardDTO">
+	select * from board where seq = #{value} order by seq desc
+</select>
+
+<select id="selectCount" resultType="int">
+	select count(*) from messages
+</select>
+
+<delete id="delete">
+	delete from board where seq = #{value}
+</delete>
+
+<update id="view_count">
+      update board set view_count=view_count+1 where seq=#{value}
+ </update>
+ 
+
+<update id="update">
+      update board set ${columnName1} = #{changeValue1}, ${columnName2} = #{changeValue2} where ${targetColumn} = #{targetValue}
+ </update>
+</mapper>

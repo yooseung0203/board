@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Comment">
+
+<insert id="insert"> 
+	insert into comments values (comment_seq.nextval,#{writer},#{contents},sysdate,#{parent_seq})
+</insert>
+
+<select id="selectByParentSeq" resultType="kh.spring.dto.CommentDTO">
+	select * from comments where parent_seq = #{value}
+</select>
+</mapper>

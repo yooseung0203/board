@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="msg">
+	
+	<!--select 문  -->
+	
+	<select id="selectBySender" resultType="kh.spring.dto.MsgDTO">
+		select * from msg where msg_receiver = #{value} and msg_sender!='admin'
+	</select>
+	<select id="selectByAdmin" resultType="kh.spring.dto.MsgDTO">
+		select * from msg where msg_receiver =#{value} and msg_sender='admin'
+	</select>
+	<select id="selectByReceiver" resultType="kh.spring.dto.MsgDTO">
+		select * from msg where msg_sender = #{value}
+	</select>
+	
+	<!--insert 문  -->
+	<insert id="insert">
+	insert into msg values(msg_seq.nextval,#{msg_sender},#{msg_receiver},#{msg_title},#{msg_text},sysdate,0)
+	</insert>
+	
+	<insert id="insertWelcome">
+	insert into msg values(msg_seq.nextval,'admin',#{value},'가입을축하합니다.','회원 가입을 축하합니다.',sysdate,0)
+	</insert>
+</mapper>

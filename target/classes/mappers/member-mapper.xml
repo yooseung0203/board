@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Member">
+
+<select id="getNextval" resultType="int">
+	select board_seq.nextval from dual
+</select>
+
+<select id="getArticleCount" resultType="int">
+	select count(*) from board
+</select>
+
+<insert id="insert"> 
+	insert into member values(#{id},#{pw},#{name},#{phone},#{email},#{zipcode},#{address1},#{address2})
+	<!-- 문자열은 # -->
+</insert>
+<select id="loginCheck" resultType="int">
+	select count(*) from member where id= #{id} and pw= #{pw}
+</select>
+
+<select id="selectById" resultType="kh.spring.dto.MemberDTO">
+	select * from member where id= #{value}
+</select>
+
+<select id="duplCheck" resultType="int">
+	select count(*) from member where id=#{id}
+</select>
+
+<delete id="delete">
+	delete from member where id = #{value}
+</delete>
+
+<update id="view_count">
+      update board set view_count=view_count+1 where seq={#value}
+ </update>
+ 
+
+<update id="update">
+     update member set pw=#{pw}, name=#{name}, phone=#{phone}, email=#{email}, zipcode=#{zipcode}, address1=#{address1}, address2=#{address2} where id=#{id}
+ </update>
+</mapper>
