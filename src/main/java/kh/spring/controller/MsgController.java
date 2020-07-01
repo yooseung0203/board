@@ -32,7 +32,7 @@ public class MsgController {
 		System.out.println(msg_receiver);
 		List<MsgDTO> dto = msgservice.selectBySender(msg_receiver);
 		request.setAttribute("list", dto);
-		return "msg/msglist";
+		return "msg/msgListSender";
 	}
 	//관리자
 	
@@ -42,7 +42,7 @@ public class MsgController {
 		System.out.println(msg_receiver);
 		List<MsgDTO> dto = msgservice.selectByAdmin(msg_receiver);
 		request.setAttribute("list", dto);
-		return "msg/msglist";
+		return "msg/msgListSender";
 	}
 	//보낸쪽지함
 	
@@ -52,7 +52,7 @@ public class MsgController {
 		System.out.println(msg_receiver);
 		List<MsgDTO> dto = msgservice.selectByReceiver(msg_receiver);
 		request.setAttribute("list", dto);
-		return "msg/msglist";
+		return "msg/msgListReceiver";
 	}
 	
 	@RequestMapping("msgWrite")
@@ -66,6 +66,33 @@ public class MsgController {
 		msgdto.setMsg_sender(msg_sender);
 		int result = msgservice.insert(msgdto);
 		return "member/mypage";
+	}
+	
+	@RequestMapping("msgView")
+	public String msgView(HttpServletRequest request,int msg_seq)throws Exception{
+		
+		MsgDTO msgDTO = msgservice.selectBySeq(msg_seq);
+		int result = msgservice.updateView(msg_seq);
+		request.setAttribute("msgView", msgDTO);
+		return "msg/msgView";
+	}
+	
+	//받은쪽지함 삭제
+	
+	@RequestMapping("msgReceiverDel")
+	public String ReceiverDel(int msg_seq)throws Exception{
+		int result = msgservice.receiver_del(msg_seq);
+		
+		return "redirect:msg_list_sender";
+	}
+	
+	//보낸쪽지함 삭제
+	@RequestMapping("msgSenderDel")
+	public String SenderDel(int msg_seq)throws Exception{
+		System.out.println(msg_seq);
+		int result = msgservice.sender_del(msg_seq);
+
+		return "redirect:msg_list_receiver";
 	}
 }
 

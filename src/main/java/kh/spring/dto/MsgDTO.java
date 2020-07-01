@@ -10,9 +10,11 @@ public class MsgDTO {
 	private String msg_text;
 	private Timestamp msg_date;
 	private int msg_view;
+	private int sender_del;
+	private int receiver_del;
 	
 	public MsgDTO() {};
-	public MsgDTO(int msg_seq,String msg_sender,String msg_receiver,String msg_title,String msg_text,Timestamp msg_date,int msg_view) {
+	public MsgDTO(int msg_seq,String msg_sender,String msg_receiver,String msg_title,String msg_text,Timestamp msg_date,int msg_view,int sender_del,int receiver_del) {
 		super();
 		this.msg_seq=msg_seq;
 		this.msg_sender=msg_sender;
@@ -21,6 +23,8 @@ public class MsgDTO {
 		this.msg_text=msg_text;
 		this.msg_date=msg_date;
 		this.msg_view=msg_view;
+		this.sender_del=sender_del;
+		this.receiver_del=receiver_del;
 	}
 	public int getMsg_seq() {
 		return msg_seq;
@@ -64,7 +68,19 @@ public class MsgDTO {
 	public void setMsg_view(int msg_view) {
 		this.msg_view = msg_view;
 	}
+	public int getSender_del() {
+		return sender_del;
+	}
+	public void setSender_del(int sender_del) {
+		this.sender_del = sender_del;
+	}
+	public int getReceiver_del() {
+		return receiver_del;
+	}
 	
+	public void setReceiver_del(int receiver_del) {
+		this.receiver_del = receiver_del;
+	}
 	
 }
 
